@@ -3,17 +3,30 @@ h1 {
     color:#006400
 }
 
-p {
-    margin-right: 40px;
-    margin-bottom: 40px;
-    margin-left: 40px;
-}
-
 h2 {
     margin-left: 40px;
-    color: #006400
+    color: #006400;
+    border: black;
 }
 
 h4 {
     text-decoration: underline;
+}
+
+p {
+    margin-right: 40px;
+    margin-bottom: 40px;
+    margin-left: 40px;
+    font-size: 18px;
+}
+
+img {
+    width: 1000px;
+    height: 450px;
+    border: 4px solid #000
+}
+
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
 }
