@@ -1,4 +1,10 @@
 import pygame
+import os
+import 
+
+
+
+
 
 def inicializa():
     assets = {
