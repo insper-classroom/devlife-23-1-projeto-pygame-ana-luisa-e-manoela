@@ -26,6 +26,7 @@ def inicializa():
         'tnt' : pygame.image.load("docs/imagens/surpresa.png"),
         'dragao branco' : pygame.image.load("docs/imagens/dragao branco.png"),
         'passaro vila sesamo' : pygame.image.load("docs/imagens/urubu amarelo.png"),
+        'reta colorida' : pygame.image.load("docs\imagens\cor.png"),
 
     }
 
@@ -38,7 +39,8 @@ def inicializa():
         'vel_y' : 0,
         'pos_x_pokebola' : 110,
         'pos_y_pokebola' : 325,
-        'atirou' : False
+        'atirou' : False,
+        'pos_y_mira' : 126
     }
     #v = 100
     #g = 2
@@ -49,8 +51,7 @@ def desenha(window, assets, state):
 
     fundo_jogo = pygame.image.load("docs/imagens/download.png")
     fundo_jogo = pygame.transform.scale(fundo_jogo, (1000, 450))
-
-    assets['brock'] = pygame.transform.scale(assets['brock'], (120,120))
+    assets['brock'] = pygame.transform.scale(pygame.image.load("docs/imagens/personagem.png"), (120,120))
     assets['caixa'] = pygame.transform.scale(assets['caixa'], (60, 60))
     assets['estilingue'] = pygame.transform.scale(assets['estilingue'], (30,50)) 
     assets['bulbasaur'] = pygame.transform.scale(assets['bulbasaur'], (50,50))
@@ -94,6 +95,9 @@ def desenha(window, assets, state):
     window.blit(assets['tnt'], ((420, 310)))
     window.blit(assets['dragao branco'], ((600, 20)))
     window.blit(assets['passaro vila sesamo'], ((400, 40)))
+    window.blit(assets['reta colorida'], ((20,0)))
+    mira = pygame.draw.rect(window, (0,0,0), (17,126, 40,4)) 
+
 
     caixas = [(800, 285), (860, 285), (920, 285), (830, 226), (890, 226), (860, 167), (580, 285), (520, 285), (548, 226), (310, 285)]
     for i in caixas:
@@ -116,7 +120,14 @@ def recebe_eventos(state):
         if state['atirou']:
             state['pos_x_pokebola'] += state['vel_x']
             state['vel_y'] += 2 
-            state['pos_y_pokebola'] += state['vel_y']        
+            state['pos_y_pokebola'] += state['vel_y']   
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE: 
+                    state['pos_y_mira'] += 1 
+                    if state['pos_y_mira'] == 30:
+                        state['pos_y_mire'] -= 1 
+
+
         return True
 
 if __name__ == '__main__':
