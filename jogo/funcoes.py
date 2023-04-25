@@ -23,7 +23,6 @@ def inicializa():
         'tnt' : pygame.image.load("docs/imagens/surpresa.png"),
         'dragao branco' : pygame.image.load("docs/imagens/dragao branco.png"),
         'passaro vila sesamo' : pygame.image.load("docs/imagens/urubu amarelo.png"),
-        'charmander' : pygame.image.load("docs/imagens/charmander.png")
 
     }
 
@@ -60,7 +59,7 @@ def desenha(window, assets, state):
     assets['tnt'] = pygame.transform.scale(assets['tnt'], (40,40))
     assets['dragao branco'] = pygame.transform.scale(assets['dragao branco'], (50,50))
     assets['passaro vila sesamo'] = pygame.transform.scale(assets['passaro vila sesamo'], (100,100)) 
-    assets['charmander'] = pygame.transform.scale(assets['charmander'], (90,90))
+    
 
 
     window.blit(fundo_jogo, (0,0)) 
@@ -85,8 +84,7 @@ def desenha(window, assets, state):
     window.blit(assets['tnt'], ((690, 310)))
     window.blit(assets['tnt'], ((420, 310)))
     window.blit(assets['dragao branco'], ((600, 20)))
-    window.blit(assets['passaro vila sesamo'], ((100, 40)))
-    window.blit(assets['charmander'], ((300, 70)))
+    window.blit(assets['passaro vila sesamo'], ((400, 40)))
 
 
 
