@@ -1,4 +1,7 @@
 import pygame
+import random
+import math
+
 pygame.init()
 
 def inicializa():
@@ -30,7 +33,15 @@ def inicializa():
     pygame.mixer.music.load("docs/musica/sound.mp3")
     pygame.mixer.music.play() 
     state = {
+        'teta' : 0,
+        'vel_x' : 0,
+        'vel_y' : 0,
+        'pos_x_pokebola' : 110,
+        'pos_y_pokebola' : 325,
+        'atirou' : False
     }
+    #v = 100
+    #g = 2
 
     return window, assets, state
 
@@ -59,8 +70,6 @@ def desenha(window, assets, state):
     assets['tnt'] = pygame.transform.scale(assets['tnt'], (40,40))
     assets['dragao branco'] = pygame.transform.scale(assets['dragao branco'], (50,50))
     assets['passaro vila sesamo'] = pygame.transform.scale(assets['passaro vila sesamo'], (100,100)) 
-    
-
 
     window.blit(fundo_jogo, (0,0)) 
     window.blit(assets['bulbasaur'], ((865, 289)))
@@ -71,7 +80,7 @@ def desenha(window, assets, state):
     window.blit(assets['eevee'], ((843, 234)))
     window.blit(assets['pikachu'], ((886, 233)))
     window.blit(assets['mimikyu'], ((870, 173)))
-    window.blit(assets['pokebola'], ((110, 325)))
+    window.blit(assets['pokebola'], ((state['pos_x_pokebola'], state['pos_y_pokebola'])))
     window.blit(assets['exclamação'], ((40, 210)))
     window.blit(assets['snorlax'], ((587, 285)))
     window.blit(assets['fofopreto'], ((528, 295)))
@@ -86,21 +95,32 @@ def desenha(window, assets, state):
     window.blit(assets['dragao branco'], ((600, 20)))
     window.blit(assets['passaro vila sesamo'], ((400, 40)))
 
-
-
     caixas = [(800, 285), (860, 285), (920, 285), (830, 226), (890, 226), (860, 167), (580, 285), (520, 285), (548, 226), (310, 285)]
     for i in caixas:
         window.blit(assets['caixa'], (i))
 
     pygame.display.update()
 
-def recebe_eventos():
-    while True:
+def recebe_eventos(state):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit() 
+                return False 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                teta = random.randint(10,80)
+                teta_radianos = math.radians(teta)
+                vel_X = 40 * math.cos(teta_radianos) 
+                vel_y = -40 * math.sin(teta_radianos)
+                state['vel_x'] = vel_X
+                state['vel_y'] = vel_y
+                state['atirou'] = True
+        if state['atirou']:
+            state['pos_x_pokebola'] += state['vel_x']
+            state['vel_y'] += 2 
+            state['pos_y_pokebola'] += state['vel_y']        
+        return True
 
 if __name__ == '__main__':
     window, assets, state = inicializa()
-    desenha(window, assets, state)
-    recebe_eventos()
+    while recebe_eventos(state):
+        desenha(window, assets, state)
+         
